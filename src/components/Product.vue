@@ -1,6 +1,6 @@
 <template>
   <div class="col-6 col-md-4 col-xl-3 mb-4">
-    <div class="card ">
+    <div class="card " @click="toDetail(productDetail.id)">
       <div class="card-body ">
         <div class="d-flex flex-column justify-content-between product-card-height">
           <div class="">
@@ -14,7 +14,7 @@
               <p>$ {{ productDetail.price }}</p>
               <Rating :rating="productDetail.rating"></Rating>
             </div>
-            <button class="btn btn-outline-primary w-100">Add to Cart</button>
+            <AddToCartButton/>
           </div>
         </div>
       </div>
@@ -24,13 +24,24 @@
 
 <script>
 import Rating from "@/components/Rating";
+import AddToCartButton from "@/components/AddToCartButton";
 export default {
-  components: {Rating},
+  components: {AddToCartButton, Rating},
   props: {
     productDetail: {
       type: Object,
       required : true
     },
+  },
+  methods: {
+    toDetail(productId) {
+      this.$router.push({
+        name: "productDetail",
+        params: {
+          id: productId
+        }
+      })
+    }
   },
 }
 </script>
